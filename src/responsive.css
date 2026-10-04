@@ -110,6 +110,45 @@ footer { font-size: 11px; font-weight: 600; }
 .reward-list span { font-size: 13px; }
 .muted-message { font-size: 13px; }
 
+.event-picker { gap: 16px; }
+.event-picker label { font-size: 13px; }
+.event-picker select { min-width: 230px; min-height: 50px; padding: 13px 40px 13px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; }
+
+@media (max-width: 760px) {
+  .event-picker select { min-width: 0; width: 100%; }
+}
+
+@media (max-width: 1100px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .app-shell {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+  }
+}
+
+@media (min-width: 1101px) {
+  .app-shell {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: clamp(32px, 4vw, 72px);
+  }
+
+  .workspace-grid {
+    width: 100%;
+    grid-template-columns: minmax(0, 1.5fr) minmax(390px, .75fr);
+  }
+}
+
 .full-rewards-page {
   position: relative;
   overflow: hidden;
