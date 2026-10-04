@@ -42,3 +42,113 @@
   padding: 3px;
   flex: 0 0 40px;
 }
+
+.panel {
+  border-radius: 16px;
+  border-color: #30433d;
+  box-shadow: 0 8px 0 #0a1211, 0 16px 28px rgba(0, 0, 0, .18), inset 0 1px 0 rgba(255, 255, 255, .035);
+}
+
+.points-panel,
+.next-panel,
+.total-panel {
+  transform: translateY(-1px);
+}
+
+.points-input input,
+.claimed-points-input input,
+.quick-actions button,
+.reset-button {
+  border-radius: 8px;
+}
+
+.progress-track {
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, .25), 0 1px 0 rgba(255, 255, 255, .04);
+}
+
+.next-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.next-heading h2 { margin-bottom: 31px; }
+.next-heading .full-rewards-button { flex-shrink: 0; }
+
+@media (max-width: 760px) {
+  .next-heading { align-items: flex-start; flex-wrap: wrap; }
+  .next-heading h2 { margin-bottom: 16px; }
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+}
+
+.eyebrow,
+.event-picker label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #aebdb7;
+}
+
+.brand strong { font-size: 15px; font-weight: 700; }
+.brand div span { font-size: 10px; font-weight: 600; color: #a0b2aa; }
+.save-note,
+.progress-labels,
+.claimed-points-input small,
+.full-reward-copy small,
+footer { font-size: 11px; font-weight: 600; }
+.quick-actions button,
+.full-rewards-button,
+.reset-button { font-size: 12px; font-weight: 700; }
+.next-detail,
+.total-item small,
+.full-reward-items,
+.full-reward-copy small { font-size: 12px; }
+.reward-list span { font-size: 13px; }
+.muted-message { font-size: 13px; }
+
+.full-rewards-page {
+  position: relative;
+  overflow: hidden;
+  margin-top: 18px;
+  padding: 30px 28px 56px;
+  border: 1px solid #29264f;
+  border-radius: 20px;
+  background-color: #514d7d;
+  background-image: radial-gradient(circle at 18px 18px, rgba(218, 219, 255, .12) 0 8px, transparent 9px), radial-gradient(circle at 50px 52px, rgba(30, 28, 75, .15) 0 12px, transparent 13px), linear-gradient(135deg, rgba(255, 255, 255, .035) 25%, transparent 25% 75%, rgba(255, 255, 255, .035) 75%);
+  background-size: 74px 74px, 91px 91px, 24px 24px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 10px 0 #0a1211, 0 18px 28px rgba(0, 0, 0, .2);
+}
+
+.full-rewards-page .back-button,
+.full-rewards-page .full-rewards-heading { position: relative; z-index: 1; }
+
+.full-rewards-page .back-button { color: #f1f0ff; }
+.full-rewards-page .back-button:hover { color: var(--lime); }
+.full-rewards-page .eyebrow { color: #d4d3ee; }
+
+.full-rewards-page .full-rewards-heading h2 { color: #f5f5ff; }
+.full-rewards-page .full-rewards-heading p:last-child { color: #d0d0e8; }
+.game-reward-track { padding: 10px 8px 18px 48px; }
+.game-reward-track::before { z-index: 0; background: #28264e; border-color: #16152d; box-shadow: 0 0 0 4px rgba(27, 25, 65, .7); }
+.game-reward-track::after { content: ''; position: absolute; z-index: 0; top: 10px; bottom: auto; left: 14px; width: 8px; height: var(--track-progress, 0%); border: 2px solid #a9d44e; background: repeating-linear-gradient(45deg, #f8b900 0 12px, #ffd42a 12px 24px); box-shadow: 0 0 0 2px rgba(32, 28, 73, .8); }
+.full-reward-row { z-index: 1; border-radius: 22px; border-width: 4px; background: linear-gradient(#d6d7e9 0 68px, transparent 68px), repeating-conic-gradient(#fff 0 25%, #eceef2 0 50%) 50% / 32px 32px; box-shadow: 0 7px 0 #29264d, 0 12px 14px rgba(22, 20, 54, .25); }
+.full-reward-row::after { content: ''; position: absolute; left: 0; right: 0; top: 68px; border-top: 2px solid rgba(185, 186, 206, .8); }
+.full-reward-row::before { width: 36px; height: 36px; left: -48px; border-width: 4px; background: #302d59; border-radius: 9px; transform: rotate(45deg); }
+.full-reward-row.reached::before { background: var(--lime); border-radius: 9px; transform: rotate(45deg); }
+.full-reward-row.claimed::before { background: var(--aqua); border-radius: 9px; transform: rotate(45deg); }
+.full-reward-row.current::before { background: repeating-linear-gradient(45deg, #ffbd08 0 12px, #ffdc39 12px 24px); border-color: #1b173c; border-radius: 10px; transform: rotate(45deg); box-shadow: 0 4px 0 #c98208; }
+.full-reward-row.current .track-node { color: #fff2a1; font-size: 18px; }
+.full-reward-copy strong { color: #11121f; font-size: 18px; }
+.full-reward-copy small { color: #686981; }
+.full-reward-items { color: #11121f; }
+
+@media (max-width: 760px) {
+  .full-rewards-page { margin-inline: -1px; padding: 24px 12px 40px; border-radius: 15px; }
+  .game-reward-track { padding-left: 27px; padding-right: 0; }
+  .full-reward-row::before { left: -34px; width: 27px; height: 27px; }
+  .full-reward-row { border-radius: 16px; }
+}
