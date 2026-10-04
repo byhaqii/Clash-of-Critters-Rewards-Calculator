@@ -114,8 +114,12 @@ footer { font-size: 11px; font-weight: 600; }
 .event-picker label { font-size: 13px; }
 .event-picker select { min-width: 230px; min-height: 50px; padding: 13px 40px 13px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; }
 
+.event-heading-picker select { min-width: 300px; padding: 10px 48px 10px 16px; border: 1px solid #496057; border-radius: 12px; background: #1b2a25; color: var(--ink); font-size: 30px; font-weight: 700; outline: none; }
+.event-heading-picker select:focus { border-color: var(--lime); box-shadow: 0 0 0 3px rgba(199, 243, 106, .14); }
+
 @media (max-width: 760px) {
   .event-picker select { min-width: 0; width: 100%; }
+  .event-heading-picker select { width: 100%; min-width: 0; font-size: 24px; }
 }
 
 @media (max-width: 1100px) {
