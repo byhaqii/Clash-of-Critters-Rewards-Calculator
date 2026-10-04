@@ -7,6 +7,7 @@ export type RewardId =
   | 'blue_pack'
   | 'purple_pack'
   | 'orange_pack'
+  | 'glitter_fruit'
 
 export type Reward = { id: RewardId; label: string; amount: number; displayAmount: string }
 export type Milestone = { id: number; points: number; rewards: Reward[] }

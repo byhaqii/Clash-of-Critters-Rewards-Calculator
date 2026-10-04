@@ -1,0 +1,44 @@
+@media (min-width: 761px) and (max-width: 1100px) {
+  .app-shell { padding-inline: 22px; }
+  .topbar { gap: 18px; }
+  .event-picker { flex-wrap: wrap; justify-content: flex-end; }
+  .workspace-grid { grid-template-columns: minmax(0, 1.15fr) minmax(270px, .85fr); }
+  .panel { padding: 21px; }
+  .total-block { display: block; }
+  .total-items { justify-content: flex-start; margin-top: 18px; }
+  .full-rewards-page { padding-inline: 8px; }
+  .full-reward-row { grid-template-columns: 125px 1fr 1.25fr; gap: 10px; padding-inline: 12px; }
+  .full-reward-items { gap: 8px; }
+}
+
+@media (min-width: 761px) and (max-width: 900px) {
+  .workspace-grid { grid-template-columns: 1fr; }
+  .side-column { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .full-reward-row { grid-template-columns: 115px 1fr 1fr; }
+  .full-reward-items { flex-direction: column; gap: 4px; }
+}
+
+@media (max-width: 760px) {
+  .app-shell { width: 100%; }
+  .topbar, .section-heading { gap: 14px; }
+  .total-panel, .points-panel, .next-panel { min-width: 0; }
+  .full-reward-row { width: 100%; max-width: 100%; }
+  .full-reward-items { min-width: 0; overflow-wrap: anywhere; }
+}
+
+@media (min-width: 1200px) {
+  .app-shell { max-width: 1480px; }
+  .workspace-grid { grid-template-columns: minmax(0, 1.45fr) minmax(360px, .75fr); }
+}
+
+@media (min-width: 1600px) {
+  .app-shell { max-width: 1600px; padding-inline: 48px; }
+  .workspace-grid { grid-template-columns: minmax(0, 1.5fr) minmax(390px, .75fr); }
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  padding: 3px;
+  flex: 0 0 40px;
+}
