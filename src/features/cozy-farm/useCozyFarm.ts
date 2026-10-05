@@ -12,7 +12,7 @@ function readFertilizer(fallback: number) {
   } catch { return fallback }
 }
 
-export function useCozyFarm(initialFertilizer = CONFIG.STARTING_FERTILIZER) {
+export function useCozyFarm(initialFertilizer: number = CONFIG.STARTING_FERTILIZER) {
   const [fertilizer, setFertilizerState] = useState(() => readFertilizer(initialFertilizer))
   const [multiplier, setMultiplier] = useState<Multiplier>(1)
   const [eventPoints, setEventPoints] = useState(0)
