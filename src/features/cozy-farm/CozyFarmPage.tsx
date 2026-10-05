@@ -46,7 +46,7 @@ export default function CozyFarmPage({ initialFertilizer, onClose }: Props) {
     game.setMultiplier(next)
     setCostFlash(next)
     if (costTimer.current) clearTimeout(costTimer.current)
-    costTimer.current = setTimeout(() => setCostFlash(null), 900)
+    costTimer.current = setTimeout(() => setCostFlash(null), 240)
   }
   const changeSupport = (input: string) => {
     const digits = input.replace(/\D/g, '').replace(/^0+(?=\d)/, '')
@@ -74,13 +74,13 @@ export default function CozyFarmPage({ initialFertilizer, onClose }: Props) {
       { transform: 'translateY(-14px) scale(1.06)', offset: 0.36 },
       { transform: 'translateY(2px) scale(.98)', offset: 0.72 },
       { transform: 'translateY(0) scale(1)' },
-    ], { duration: 420, easing: 'ease-out' })
+    ], { duration: 300, easing: 'ease-out' })
     setCostFlash(harvest.fertilizerUsed)
     if (costTimer.current) clearTimeout(costTimer.current)
-    costTimer.current = setTimeout(() => setCostFlash(null), 550)
+    costTimer.current = setTimeout(() => setCostFlash(null), 220)
     setDamage((current) => ({ id: (current?.id ?? 0) + 1, points: harvest.eventPoints }))
     if (damageTimer.current) clearTimeout(damageTimer.current)
-    damageTimer.current = setTimeout(() => setDamage(null), 850)
+    damageTimer.current = setTimeout(() => setDamage(null), 520)
   }
   fertilizeRef.current = fertilizeOnce
   const startFertilizeHold = (event: ReactPointerEvent<HTMLButtonElement>) => {
@@ -89,8 +89,8 @@ export default function CozyFarmPage({ initialFertilizer, onClose }: Props) {
     fertilizeOnce()
     holdTimer.current = setTimeout(() => {
       held.current = true
-      holdInterval.current = setInterval(() => fertilizeRef.current(), 450)
-    }, 200)
+      holdInterval.current = setInterval(() => fertilizeRef.current(), 320)
+    }, 150)
   }
   const finishFertilizeHold = () => {
     if (holdTimer.current) clearTimeout(holdTimer.current)
