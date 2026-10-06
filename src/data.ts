@@ -7,6 +7,9 @@ export type RewardId =
   | 'blue_pack'
   | 'purple_pack'
   | 'orange_pack'
+  | 'premium_rod'
+  | 'heirloom_rod'
+  | 'felicia_rod'
   | 'glitter_fruit'
 
 export type Reward = { id: RewardId; label: string; amount: number; displayAmount: string }
@@ -14,7 +17,7 @@ export type Milestone = { id: number; points: number; rewards: Reward[] }
 export type EventData = { id: string; name: string; active?: boolean; milestones: Milestone[] }
 
 const reward = (id: RewardId, label: string, amount: number, displayAmount: string): Reward => ({ id, label, amount, displayAmount })
-const candy = (displayAmount: string) => reward('candy', 'Candy', Number(displayAmount.replace('K', '000').replace('M', '000000')), displayAmount)
+const candy = (displayAmount: string) => reward('candy', 'Candy', Number(displayAmount.replace(/,/g, '').replace('K', '000').replace('M', '000000')), displayAmount)
 const item = (id: RewardId, label: string, amount: number) => reward(id, label, amount, String(amount))
 const bubble = (amount: number) => item('bubble', 'Pinball', amount)
 const capsule = (amount: number) => item('capsule', 'Egg', amount)
@@ -23,6 +26,82 @@ const pill = (amount: number) => item('pill', 'Pill', amount)
 const bluePack = (amount: number) => item('blue_pack', 'Blue Pack', amount)
 const purplePack = (amount: number) => item('purple_pack', 'Purple Pack', amount)
 const orangePack = (amount: number) => item('orange_pack', 'Orange Pack', amount)
+const premiumRod = (amount: number) => item('premium_rod', 'Premium Rod', amount)
+const heirloomRod = (amount: number) => item('heirloom_rod', 'Heirloom Rod', amount)
+const feliciaRod = (amount: number) => item('felicia_rod', "Felicia's Rod", amount)
+
+const fishingRows: Milestone[] = [
+  [1000, [bubble(30), candy('56,700')]],
+  [5000, [bubble(30), candy('56,700')]],
+  [10000, [bubble(30), capsule(5), candy('56,700')]],
+  [20000, [bubble(30), candy('56,700')]],
+  [50000, [bubble(30), candy('56,700'), pill(50)]],
+  [100000, [bubble(60), capsule(5), bluePack(1)]],
+  [200000, [bubble(30), candy('113K')]],
+  [300000, [box(2), bubble(30), candy('226K')]],
+  [400000, [bubble(30), candy('113K')]],
+  [500000, [bubble(30), candy('113K')]],
+  [600000, [bubble(90), capsule(10), purplePack(1)]],
+  [800000, [premiumRod(1), bubble(30), candy('113K')]],
+  [1000000, [bubble(30), capsule(10), candy('113K')]],
+  [1200000, [bubble(60), candy('113K'), pill(50)]],
+  [1400000, [box(3), bubble(120), candy('340K')]],
+  [1600000, [bubble(120), bluePack(1)]],
+  [1800000, [bubble(120), capsule(10), candy('453K')]],
+  [2000000, [bubble(120), candy('453K')]],
+  [2200000, [heirloomRod(1), bubble(150), candy('567K')]],
+  [2400000, [bubble(150), capsule(10), candy('567K')]],
+  [2600000, [bubble(240), candy('567K')]],
+  [2800000, [bubble(120), candy('680K'), pill(100)]],
+  [3000000, [bubble(180), capsule(10), candy('1020K')]],
+  [3200000, [bubble(120), purplePack(1)]],
+  [3400000, [bubble(120), candy('453K')]],
+  [3600000, [bubble(120), candy('453K')]],
+  [3800000, [bubble(150), capsule(15), candy('567K')]],
+  [4000000, [bubble(120), candy('567K')]],
+  [4200000, [bubble(120), candy('567K')]],
+  [4400000, [bubble(180), capsule(15), candy('680K')]],
+  [4600000, [bubble(180), candy('680K')]],
+  [4800000, [bubble(180), candy('680K')]],
+  [5000000, [bubble(240), capsule(15), orangePack(1)]],
+  [5200000, [bubble(120), candy('453K')]],
+  [5400000, [bubble(120), candy('453K')]],
+  [5600000, [feliciaRod(1), bubble(120), candy('453K')]],
+  [5800000, [bubble(150), capsule(20), candy('567K')]],
+  [6000000, [bubble(150), candy('567K')]],
+  [6200000, [bubble(150), candy('567K'), pill(100)]],
+  [6400000, [bubble(180), candy('680K')]],
+  [6600000, [box(5), bubble(240), candy('1530K')]],
+  [6800000, [bubble(180), candy('680K')]],
+  [7000000, [bubble(180), candy('680K')]],
+  [7200000, [bubble(300), capsule(20), purplePack(1)]],
+  [7500000, [bubble(180), candy('680K'), pill(100)]],
+  [8000000, [box(5), bubble(360), candy('1530K')]],
+  [8500000, [bubble(180), candy('680K')]],
+  [9000000, [bubble(360), capsule(20), candy('1530K')]],
+  [9500000, [bubble(180), candy('680K'), pill(100)]],
+  [10000000, [box(5), bubble(360), orangePack(1)]],
+  [10500000, [bubble(180), candy('680K')]],
+  [11000000, [bubble(180), candy('680K')]],
+  [11500000, [bubble(180), candy('680K')]],
+  [12000000, [bubble(240), capsule(30), candy('1020K')]],
+  [12500000, [bubble(180), candy('680K')]],
+  [13000000, [bubble(180), candy('680K')]],
+  [13500000, [bubble(180), candy('680K')]],
+  [14000000, [bubble(180), candy('680K')]],
+  [14500000, [bubble(180), candy('680K')]],
+  [15000000, [bubble(300), capsule(30), purplePack(1)]],
+  [15500000, [bubble(180), candy('680K')]],
+  [16000000, [bubble(180), candy('680K')]],
+  [16500000, [bubble(180), candy('680K')]],
+  [17000000, [bubble(180), candy('680K')]],
+  [17500000, [bubble(180), candy('680K')]],
+  [18000000, [bubble(450), capsule(30), candy('1927K')]],
+  [18500000, [bubble(180), candy('680K')]],
+  [19000000, [bubble(180), candy('680K')]],
+  [19500000, [bubble(180), candy('680K')]],
+  [20000000, [box(5), bubble(600), orangePack(1)]],
+].map(([points, rewards], index) => ({ id: index + 1, points: points as number, rewards: rewards as Reward[] }))
 
 const row = (id: number, points: number, first: Reward, second: Reward): Milestone => ({ id, points, rewards: [first, second] })
 const c = (points: number, first: Reward, second: Reward) => ({ points, first, second })
@@ -51,7 +130,7 @@ const cozyRows = [
 ].map((entry, index) => row(index + 1, entry.points, entry.first, entry.second))
 
 export const events: EventData[] = [
-  { id: 'fishing', name: 'Fishing Contest', milestones: [] },
+  { id: 'fishing', name: 'Fishing Tournament', milestones: fishingRows },
   { id: 'treasure', name: 'Treasure Hunt', milestones: [] },
   { id: 'raft', name: 'Raft Race', milestones: [] },
   { id: 'zobo', name: 'Zobo Shooter', milestones: [] },
