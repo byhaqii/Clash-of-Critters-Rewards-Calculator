@@ -48,7 +48,9 @@ function App() {
     milestone.rewards.forEach((item) => { const current = result[item.id]; result[item.id] = { label: item.label, amount: (current?.amount ?? 0) + item.amount, displayAmount: current ? compactPoints(current.amount + item.amount) : item.displayAmount } })
     return result
   }, emptyTotals())
-  const glitterFruit = Math.floor(Math.max(0, saved.points - 1450000) / 30000)
+  const glitterFruit = event.id === 'fishing' && saved.points > 20000000
+    ? 1 + Math.floor((saved.points - 20000000) / 500000)
+    : 0
   if (glitterFruit > 0) totals.glitter_fruit = { label: 'Glitter Fruit', amount: glitterFruit, displayAmount: formatPoints(glitterFruit) }
   const setPoints = (value: string | number) => { const points = Math.max(0, typeof value === 'number' ? value : parsePointInput(value)); update({ points }); setPointsDraft(formatPoints(points)) }
   const setClaimedPoints = (value: string | number) => { const claimedPoints = Math.min(saved.points, Math.max(0, typeof value === 'number' ? value : parsePointInput(value))); update({ claimedPoints }); setClaimedPointsDraft(formatPoints(claimedPoints)) }
