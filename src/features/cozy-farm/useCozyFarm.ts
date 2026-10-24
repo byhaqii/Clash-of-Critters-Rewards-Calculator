@@ -17,13 +17,15 @@ export function useCozyFarm(initialFertilizer: number = CONFIG.STARTING_FERTILIZ
   const [multiplier, setMultiplier] = useState<Multiplier>(1)
   const [eventPoints, setEventPoints] = useState(0)
   const [notice, setNotice] = useState('')
+  const [saveError, setSaveError] = useState(false)
   const noticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const selectedMultiplier = useMemo(() => affordableMultiplier(fertilizer, multiplier), [fertilizer, multiplier])
 
   const setFertilizer = useCallback((value: number) => {
-    const next = Math.max(0, Math.min(CONFIG.MAX_FERTILIZER, Math.floor(value)))
+    const next = Number.isFinite(value) ? Math.max(0, Math.min(CONFIG.MAX_FERTILIZER, Math.floor(value))) : 0
     setFertilizerState(next)
-    try { localStorage.setItem(STORAGE_KEY, String(next)) } catch { /* Storage can be disabled by the browser. */ }
+    try { localStorage.setItem(STORAGE_KEY, String(next)); setSaveError(false) }
+    catch { setSaveError(true) }
     setMultiplier((current) => affordableMultiplier(next, current))
   }, [])
 
@@ -59,5 +61,5 @@ export function useCozyFarm(initialFertilizer: number = CONFIG.STARTING_FERTILIZ
     flash('Farm reset!')
   }, [flash, setFertilizer])
 
-  return { fertilizer, setFertilizer, multiplier, setMultiplier, selectedMultiplier, eventPoints, notice, fertilize, autoFertilize, reset }
+  return { fertilizer, setFertilizer, multiplier, setMultiplier, selectedMultiplier, eventPoints, notice, saveError, fertilize, autoFertilize, reset }
 }

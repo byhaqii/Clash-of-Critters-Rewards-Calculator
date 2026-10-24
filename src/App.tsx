@@ -1,5 +1,8 @@
-import { lazy, Suspense, useEffect, useMemo, useState, type CSSProperties } from 'react'
+import { lazy, Suspense, useMemo, useState } from 'react'
 import { events, type Milestone, type RewardId } from './data'
+import { Modal } from './Modal'
+import { SimulatorBoundary } from './SimulatorBoundary'
+import { normalizeProgress, parsePointInput } from './progress'
 import './App.css'
 import './responsive.css'
 
@@ -11,24 +14,18 @@ const emptyTotals = (): Totals => ({} as Totals)
 const numberFormat = new Intl.NumberFormat('en-US')
 const formatPoints = (value: number) => numberFormat.format(value)
 const compactPoints = (value: number) => value >= 1000000 ? `${(value / 1000000).toFixed(value % 1000000 ? 2 : 0).replace(/\.0+$/, '')}M` : value >= 1000 ? `${(value / 1000).toFixed(value % 1000 ? 1 : 0).replace(/\.0+$/, '')}K` : formatPoints(value)
-const parsePointInput = (value: string) => {
-  const normalized = value.trim().replace(/,/g, '').toLowerCase()
-  const match = normalized.match(/^(\d+(?:\.\d+)?)\s*([km])?$/)
-  if (!match) return Number(value.replace(/[^0-9]/g, '')) || 0
-  const multiplier = match[2] === 'm' ? 1000000 : match[2] === 'k' ? 1000 : 1
-  return Math.round(Number(match[1]) * multiplier)
-}
 const readSavedState = (): SavedState => {
   const fallback = { eventId: 'cozy-farm', points: 0, claimedPoints: 0 }
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (!stored) return fallback
     const parsed = JSON.parse(stored)
-    if (typeof parsed.claimedPoints === 'number') return { eventId: parsed.eventId ?? fallback.eventId, points: parsed.points ?? fallback.points, claimedPoints: parsed.claimedPoints }
+    const eventId = events.some((item) => item.id === parsed.eventId) ? parsed.eventId : fallback.eventId
+    if (typeof parsed.claimedPoints === 'number') return { eventId, ...normalizeProgress(parsed.points, parsed.claimedPoints) }
     const legacyEvent = events.find((item) => item.id === parsed.eventId) ?? events[4]
     const legacyClaimed = Array.isArray(parsed.claimed) ? parsed.claimed : []
     const migratedClaimedPoints = legacyEvent.milestones.filter((milestone) => legacyClaimed.includes(milestone.id)).at(-1)?.points ?? 0
-    return { eventId: parsed.eventId ?? fallback.eventId, points: parsed.points ?? fallback.points, claimedPoints: migratedClaimedPoints }
+    return { eventId, ...normalizeProgress(parsed.points, migratedClaimedPoints) }
   } catch { return fallback }
 }
 
@@ -38,9 +35,18 @@ function App() {
   const [claimedPointsDraft, setClaimedPointsDraft] = useState(() => formatPoints(saved.claimedPoints))
   const [showFullRewards, setShowFullRewards] = useState(false)
   const [showFarm, setShowFarm] = useState(false)
+  const [saveError, setSaveError] = useState(false)
+  const [inputError, setInputError] = useState('')
   const event = events.find((item) => item.id === saved.eventId) ?? events[4]
-  const update = (patch: Partial<SavedState>) => setSaved((current) => ({ ...current, ...patch }))
-  useEffect(() => { localStorage.setItem(STORAGE_KEY, JSON.stringify(saved)) }, [saved])
+  const saveProgress = (progress: SavedState) => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); setSaveError(false) }
+    catch { setSaveError(true) }
+  }
+  const update = (patch: Partial<SavedState>) => {
+    const progress = { ...saved, ...patch }
+    setSaved(progress)
+    saveProgress(progress)
+  }
   const reached = useMemo(() => event.milestones.filter((milestone) => saved.points >= milestone.points), [event, saved.points])
   const available = reached.filter((milestone) => milestone.points > saved.claimedPoints)
   const next = event.milestones.find((milestone) => saved.points < milestone.points)
@@ -52,29 +58,83 @@ function App() {
     ? 1 + Math.floor((saved.points - 20000000) / 500000)
     : 0
   if (glitterFruit > 0) totals.glitter_fruit = { label: 'Glitter Fruit', amount: glitterFruit, displayAmount: formatPoints(glitterFruit) }
-  const setPoints = (value: string | number) => { const points = Math.max(0, typeof value === 'number' ? value : parsePointInput(value)); update({ points }); setPointsDraft(formatPoints(points)) }
-  const setClaimedPoints = (value: string | number) => { const claimedPoints = Math.min(saved.points, Math.max(0, typeof value === 'number' ? value : parsePointInput(value))); update({ claimedPoints }); setClaimedPointsDraft(formatPoints(claimedPoints)) }
+  const setPoints = (value: string | number) => {
+    const parsed = typeof value === 'number' ? value : parsePointInput(value)
+    if (parsed === null) { setInputError('Enter points as a number, such as 1,000 or 1.5k.'); return }
+    const progress = normalizeProgress(parsed, saved.claimedPoints)
+    update(progress)
+    setPointsDraft(formatPoints(progress.points))
+    setClaimedPointsDraft(formatPoints(progress.claimedPoints))
+    setInputError('')
+  }
+  const setClaimedPoints = (value: string) => {
+    const parsed = parsePointInput(value)
+    if (parsed === null) { setInputError('Enter claimed points as a number, such as 1,000 or 1.5k.'); return }
+    const progress = normalizeProgress(saved.points, parsed)
+    update(progress)
+    setClaimedPointsDraft(formatPoints(progress.claimedPoints))
+    setInputError('')
+  }
   const handlePointsInput = (value: string) => { setPointsDraft(value); if (/^\d[\d,]*$/.test(value)) setPoints(value) }
-  const reset = () => { if (window.confirm('Reset points and claimed milestones for this tracker?')) { update({ points: 0, claimedPoints: 0 }); setPointsDraft('0'); setClaimedPointsDraft('0') } }
+  const emptyMessage = saved.points === 0
+    ? `Enter your event points to see your rewards. The first milestone is ${formatPoints(event.milestones[0]?.points ?? 0)} points.`
+    : reached.length === 0
+      ? `No milestone reached yet. Add ${formatPoints((next?.points ?? 0) - saved.points)} more points for your first reward.`
+      : next ? 'All reached milestones are marked claimed. Keep going to the next milestone.'
+        : 'All milestone rewards are marked claimed. Reset progress to track another run.'
+  const emptyTitle = reached.length === 0 ? 'Your next rewards start here' : 'You’re up to date'
+  const reset = () => { if (window.confirm('Reset points and claimed milestones for this tracker?')) { update({ points: 0, claimedPoints: 0 }); setPointsDraft('0'); setClaimedPointsDraft('0'); setInputError('') } }
 
   return <>
-  <main className={`app-shell ${showFarm ? 'is-farm-open' : ''}`}>
-    <header className="topbar"><div className="brand"><img className="brand-mark" src="/brand-mark.svg" alt="" /><div><strong>Clash of Critters</strong><span>Event Reward Calculator</span></div></div></header>
-    <section className="utility-heading"><div><p className="eyebrow">SELECT EVENT</p><div className="event-heading-picker"><label className="sr-only" htmlFor="event">Choose event</label><select id="event" value={event.id} onChange={(e) => { update({ eventId: e.target.value, points: 0, claimedPoints: 0 }); setPointsDraft('0'); setClaimedPointsDraft('0'); setShowFullRewards(false) }}>{events.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></div></div>{event.id === 'cozy-farm' && <button className="play-farm-button" type="button" onClick={() => { setShowFarm(true); setShowFullRewards(false) }}><span className="play-cta-icon" aria-hidden="true">▶</span><span>Play Cozy Farm Simulator</span></button>}</section>
+  <main className="app-shell">
+    <header className="topbar"><div className="brand"><img className="brand-mark" src="/brand-mark.svg" alt="" width="40" height="40" /><strong>Clash of Critters</strong><span className="brand-divider" aria-hidden="true" /><span>Event companion</span></div><span className="topbar-note">Progress, at your pace.</span></header>
+    <section className="page-heading"><div><h1>Event rewards</h1><p>A clear view of what you’ve earned and what’s next.</p></div></section>
+    <section className="utility-heading" aria-label="Event controls"><div className="event-heading-picker"><label htmlFor="event">Choose event</label><select id="event" value={event.id} onChange={(e) => { update({ eventId: e.target.value, points: 0, claimedPoints: 0 }); setPointsDraft('0'); setClaimedPointsDraft('0'); setInputError(''); setShowFullRewards(false) }}>{events.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></div>{event.id === 'cozy-farm' && <button className="play-farm-button" type="button" onClick={() => { setShowFarm(true); setShowFullRewards(false) }}><span className="play-cta-icon" aria-hidden="true">▶</span><span>Cozy Farm simulator</span></button>}</section>
+    {saveError && <div className="save-error" role="alert"><p>Progress is kept in this tab, but couldn’t be saved. Allow browser storage before leaving this page.</p><button onClick={() => saveProgress(saved)}>Retry saving</button></div>}
     {event.milestones.length === 0 ? <section className="empty-state"><span className="empty-icon">◌</span><h2>Milestone data coming soon</h2><p>This event’s milestone data has not been added yet.</p></section> : showFullRewards ? <FullRewardsPage eventName={event.name} milestones={event.milestones} claimedPoints={saved.claimedPoints} points={saved.points} onBack={() => setShowFullRewards(false)} /> : <>
-      <div className="workspace-grid"><div className="main-column">
-        <section className="panel points-panel"><div className="section-heading"><div><p className="eyebrow">01 / YOUR PROGRESS</p><h2>Current points</h2></div></div><label className="points-input"><span className="sr-only">Your current points</span><input value={pointsDraft} onChange={(e) => handlePointsInput(e.target.value)} onBlur={() => setPoints(pointsDraft)} inputMode="decimal" aria-label="Your current points" /><span>PTS</span></label><div className="quick-actions"><button type="button" onClick={() => setPoints(saved.points - 5000)}>−5,000</button><button type="button" onClick={() => setPoints(saved.points - 1000)}>−1,000</button><button type="button" onClick={() => setPoints(saved.points - 100)}>−100</button><button type="button" onClick={() => setPoints(saved.points + 100)}>+100</button><button type="button" onClick={() => setPoints(saved.points + 1000)}>+1,000</button><button type="button" onClick={() => setPoints(saved.points + 5000)}>+5,000</button></div><label className="claimed-points-input"><span>Claimed through</span><input value={claimedPointsDraft} onChange={(e) => setClaimedPointsDraft(e.target.value)} onBlur={() => setClaimedPoints(claimedPointsDraft)} inputMode="decimal" aria-label="Claimed points" /><small>Milestones up to this point are already claimed. Rewards start counting after this point.</small></label><button type="button" className="reset-button" onClick={reset}>Reset progress</button></section>
-        <section className="panel total-panel"><div className="section-heading"><div><p className="eyebrow">02 / REWARD TOTAL</p><h2>Total accumulated rewards</h2></div></div><div className="total-block"><div><p className="eyebrow">UNCLAIMED REWARDS</p><h3>Collected in this run</h3></div><div className="total-items">{Object.values(totals).map((item) => <div className="total-item" key={item.label}>{item.label === 'Pinball' ? <img className="reward-icon pinball" src="/pinball.webp" alt="" /> : item.label === 'Candy' ? <img className="reward-icon candy" src="/Candy.ico" alt="" /> : item.label === 'Wishbox' ? <img className="reward-icon wishbox" src="/wishbox.webp" alt="" /> : item.label === 'Egg' ? <img className="reward-icon egg" src="/egg.webp" alt="" /> : item.label === 'Glitter Fruit' ? <img className="reward-icon glitter-fruit" src="/glitter-fruit.webp" alt="" /> : <span className={`reward-icon ${item.label.toLowerCase().replace(' ', '-')}`}>✦</span>}<div><strong>{item.displayAmount}</strong><small>{item.label}</small></div></div>)}{available.length === 0 && <span className="muted-message">Nothing new to total</span>}</div></div></section>
-      </div><aside className="side-column"><section className="panel next-panel"><p className="eyebrow">03 / KEEP GOING</p><div className="next-heading"><h2>Next milestone</h2>{event.milestones.length > 0 && <button type="button" className="full-rewards-button" onClick={() => setShowFullRewards(true)}>Full milestone rewards <span>↗</span></button>}</div>{next ? <><div className="next-number"><span>#{next.id}</span><strong>{compactPoints(next.points)}</strong></div><p className="next-detail"><strong>{formatPoints(next.points - saved.points)}</strong> points remaining</p><div className="progress-track"><span style={{ width: `${Math.min(100, (saved.points / next.points) * 100)}%` }} /></div><div className="progress-labels"><span>{compactPoints(saved.points)} current</span><span>{compactPoints(next.points)} target</span></div></> : <div className="unlocked"><span>✦</span><strong>All rewards unlocked</strong><p>You reached every milestone in this event.</p></div>}</section></aside></div>
+      <div className="workspace-grid">
+        <section className="panel points-panel">
+          <div className="section-heading"><h2>Your progress</h2><button type="button" className="reset-button" onClick={reset}>Reset progress</button></div>
+          <label className="points-input"><span className="points-label">Current points</span><span className="points-value"><input value={pointsDraft} onChange={(e) => handlePointsInput(e.target.value)} onBlur={() => setPoints(pointsDraft)} inputMode="decimal" aria-label="Your current points" aria-describedby="points-hint points-error" aria-invalid={Boolean(inputError && !inputError.includes('claimed'))} /><span>pts</span></span></label>
+          <div className="quick-actions"><button type="button" onClick={() => setPoints(saved.points - 5000)}>−5,000</button><button type="button" onClick={() => setPoints(saved.points - 1000)}>−1,000</button><button type="button" onClick={() => setPoints(saved.points - 100)}>−100</button><button type="button" onClick={() => setPoints(saved.points + 100)}>+100</button><button type="button" onClick={() => setPoints(saved.points + 1000)}>+1,000</button><button type="button" onClick={() => setPoints(saved.points + 5000)}>+5,000</button></div>
+          <p id="points-hint" className="input-hint">Enter an exact number, or use 1.5k and 2m.</p>
+          <p id="points-error" className="field-error" role="alert">{inputError && !inputError.includes('claimed') ? inputError : ''}</p>
+          <label className="claimed-points-input"><span>Already claimed through</span><input value={claimedPointsDraft} onChange={(e) => setClaimedPointsDraft(e.target.value)} onBlur={() => setClaimedPoints(claimedPointsDraft)} inputMode="decimal" aria-label="Claimed points" aria-describedby="claimed-hint claimed-error" aria-invalid={Boolean(inputError.includes('claimed'))} /><small id="claimed-hint">We’ll count rewards after this point. Claimed points can’t exceed your current points.</small></label>
+          <p id="claimed-error" className="field-error" role="alert">{inputError.includes('claimed') ? inputError : ''}</p>
+          <p className="form-note">Your progress is kept in this browser.{saveError ? ' Saving is currently unavailable.' : ''}</p>
+        </section>
+        <div className="results-column">
+          <section className="total-panel">
+            <div className="section-heading"><h2>Unclaimed rewards</h2><span className="ready-count">{available.length} {available.length === 1 ? 'milestone' : 'milestones'} ready</span></div>
+            <p className="reward-description">{glitterFruit > 0 ? 'Milestones after your claimed point, plus total Glitter Fruit earned.' : 'Everything unlocked since your last claim.'}</p>
+            <div className="total-items" aria-live="polite">
+              {Object.values(totals).map((item) => <div className="total-item" key={item.label}><RewardIcon label={item.label} /><div><strong>{item.displayAmount}</strong><small>{item.label}</small></div></div>)}
+              {Object.keys(totals).length === 0 && <div className="rewards-empty">
+                <div className="reward-preview" aria-hidden="true">{Array.from(new Set(event.milestones.flatMap((milestone) => milestone.rewards.map((item) => item.label)))).slice(0, 4).map((label) => <RewardIcon key={label} label={label} />)}</div>
+                <h3>{emptyTitle}</h3><p className="muted-message">{emptyMessage}</p>
+              </div>}
+            </div>
+          </section>
+          <section className="next-panel">
+            <div className="next-heading"><h2>Next milestone</h2>{next && <span className="milestone-index">#{next.id}</span>}</div>
+            {next ? <><div className="next-number"><strong>{compactPoints(next.points - saved.points)}</strong><span>points to go</span></div><div className="progress-track" role="progressbar" aria-label="Progress to next milestone" aria-valuemin={0} aria-valuemax={next.points} aria-valuenow={saved.points}><span style={{ transform: `scaleX(${Math.min(1, saved.points / next.points)})` }} /></div><div className="progress-labels"><span>{formatPoints(saved.points)} current</span><span>{formatPoints(next.points)} target</span></div><div className="next-rewards"><span>Up next</span>{next.rewards.map((item) => <span key={item.id}><RewardIcon label={item.label} /><strong>{item.displayAmount}</strong> {item.label}</span>)}</div></> : <div className="unlocked"><strong>All rewards unlocked</strong><p>You reached every milestone in this event.</p></div>}
+            <button type="button" className="full-rewards-button" onClick={() => setShowFullRewards(true)}>View full reward track <span aria-hidden="true">↗</span></button>
+          </section>
+        </div>
+      </div>
     </>}
+    <footer className="app-footer"><span>Clash of Critters reward calculator</span><span>Plan the next milestone. Keep playing.</span></footer>
   </main>
-  {showFarm && <Suspense fallback={<div className="farm-loading">Loading Cozy Farm…</div>}><CozyFarmPage onClose={() => setShowFarm(false)} /></Suspense>}
+  {showFarm && <SimulatorBoundary onClose={() => setShowFarm(false)}><Suspense fallback={<Modal label="Loading Cozy Farm" className="farm-loading" onClose={() => setShowFarm(false)}><section className="recovery-panel"><p role="status">Loading Cozy Farm…</p><button onClick={() => setShowFarm(false)}>Back to calculator</button></section></Modal>}><CozyFarmPage onClose={() => setShowFarm(false)} /></Suspense></SimulatorBoundary>}
   </>
 }
 
+function RewardIcon({ label }: { label: string }) {
+  const src = ({ Pinball: '/pinball.webp', Candy: '/Candy.ico', Wishbox: '/wishbox.webp', Egg: '/egg.webp', 'Glitter Fruit': '/glitter-fruit.webp' } as Record<string, string>)[label]
+  return src ? <img className="reward-icon" src={src} width="32" height="32" alt="" /> : null
+}
+
 function FullRewardsPage({ eventName, milestones, claimedPoints, points, onBack }: { eventName: string; milestones: Milestone[]; claimedPoints: number; points: number; onBack: () => void }) {
-  const reachedCount = milestones.filter((milestone) => points >= milestone.points).length
-  const trackStyle = { '--track-progress': `${milestones.length ? (Math.max(0, reachedCount - 1) / milestones.length) * 100 : 0}%` } as CSSProperties
-  return <section className="full-rewards-page"><button type="button" className="back-button" onClick={onBack}>‹ <span>Calculator</span></button><div className="full-rewards-heading"><p className="eyebrow">{eventName.toUpperCase()} / COMPLETE REWARD TRACK</p><h2>Full milestone rewards</h2><p>From the first reward to the final milestone.</p></div><div className="game-reward-track" style={trackStyle}>{milestones.map((milestone) => { const isClaimed = milestone.points <= claimedPoints; const isReached = points >= milestone.points; const isCurrent = isReached && !milestones.some((other) => other.points > milestone.points && other.points <= points); return <div className={`full-reward-row ${isClaimed ? 'claimed' : isCurrent ? 'current' : isReached ? 'reached' : ''}`} key={milestone.id}><span className="track-node">{isClaimed ? '✓' : isCurrent ? '✦' : milestone.id}</span><span className="full-reward-copy"><strong>Reach {formatPoints(milestone.points)}</strong><small>Milestone #{milestone.id}</small></span><span className="full-reward-items">{milestone.rewards.map((item) => <span key={item.id}>{item.id === 'bubble' ? <img className="reward-icon pinball" src="/pinball.webp" alt="" /> : item.id === 'candy' ? <img className="reward-icon candy" src="/Candy.ico" alt="" /> : item.id === 'box' ? <img className="reward-icon wishbox" src="/wishbox.webp" alt="" /> : item.id === 'capsule' ? <img className="reward-icon egg" src="/egg.webp" alt="" /> : <b className={`reward-icon ${item.label.toLowerCase().replace(' ', '-')}`}>✦</b>}{item.displayAmount} {item.label}</span>)}</span></div> })}</div></section>
+  return <section className="full-rewards-page"><button type="button" className="back-button" onClick={onBack}>‹ <span>Back to calculator</span></button><div className="full-rewards-heading"><p>{eventName}</p><h2>The complete reward track</h2><p>Every milestone, with your claimed and available rewards.</p></div><div className="game-reward-track">{milestones.map((milestone) => { const isClaimed = milestone.points <= claimedPoints; const isReached = points >= milestone.points; return <div className={`full-reward-row ${isClaimed ? 'claimed' : isReached ? 'reached' : ''}`} key={milestone.id}><span className="track-node">{isClaimed ? '✓' : milestone.id}</span><span className="full-reward-copy"><strong>{formatPoints(milestone.points)} points</strong><small>{isClaimed ? 'Claimed' : isReached ? 'Ready to claim' : `Milestone ${milestone.id}`}</small></span><span className="full-reward-items">{milestone.rewards.map((item) => <span key={item.id}><RewardIcon label={item.label} /><strong>{item.displayAmount}</strong> {item.label}</span>)}</span></div> })}</div></section>
 }
 export default App

@@ -1,0 +1,1582 @@
+{
+ "url": "http://127.0.0.1:5173",
+ "at": "2026-10-24T08:58:46.920Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 951,
+     "screens": 1.1,
+     "words": 95,
+     "img": 1,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 4,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Current points",
+     "words": 2,
+     "chars": 14,
+     "lines": 1,
+     "size": 19,
+     "vw": 1.3,
+     "font": "Trebuchet MS",
+     "weight": 700,
+     "tracking": -0.02,
+     "leading": 1.2,
+     "top": 329,
+     "tag": "h2",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": null,
+    "headings": [
+     {
+      "text": "#1 150",
+      "words": 2,
+      "chars": 6,
+      "lines": 1,
+      "size": 32,
+      "vw": 2.2,
+      "font": "Courier New",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": true,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.27,
+      "top": 436,
+      "tag": "div",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Courier New",
+       "share": 0.61,
+       "mono": true
+      },
+      {
+       "family": "Trebuchet MS",
+       "share": 0.39,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      19,
+      24,
+      30,
+      32
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": {
+      "font": "Courier New",
+      "size": 11,
+      "leading": 1.2,
+      "weight": 600,
+      "tracking": 0,
+      "contrast": null
+     },
+     "measureChars": 149,
+     "max": {
+      "size": 32,
+      "vw": 2.2,
+      "font": "Courier New",
+      "text": "#1"
+     },
+     "monoShare": 0.61,
+     "monoProseShare": 0.61,
+     "monoFamilies": [
+      "Courier New"
+     ],
+     "monoSamples": [
+      "SELECT EVENT",
+      "01 / YOUR PROGRESS",
+      "PTS",
+      "−5,000",
+      "−1,000",
+      "−100"
+     ],
+     "microLabels": 7,
+     "microLabelShare": 0.256,
+     "microSamples": [
+      "Event Reward Calculator",
+      "SELECT EVENT",
+      "01 / YOUR PROGRESS",
+      "Claimed through",
+      "02 / REWARD TOTAL",
+      "UNCLAIMED REWARDS"
+     ],
+     "upperShare": 0.33,
+     "centerShare": 0.21,
+     "smallText": 11
+    },
+    "eyebrows": [],
+    "numbered": [
+     {
+      "text": "01 / YOUR PROGRESS",
+      "size": 12,
+      "top": 305
+     },
+     {
+      "text": "02 / REWARD TOTAL",
+      "size": 12,
+      "top": 744
+     },
+     {
+      "text": "03 / KEEP GOING",
+      "size": 12,
+      "top": 305
+     }
+    ],
+    "color": {
+     "bodyBg": "#101817",
+     "bodyBgHsl": {
+      "h": 173,
+      "s": 0.2,
+      "l": 0.08
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#101817",
+       "top": 0,
+       "hsl": {
+        "h": 173,
+        "s": 0.2,
+        "l": 0.08
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#899591",
+       "share": 0.32
+      },
+      {
+       "color": "#f1f3ee",
+       "share": 0.29
+      },
+      {
+       "color": "#aebdb7",
+       "share": 0.17
+      },
+      {
+       "color": "#abc2b7",
+       "share": 0.07
+      },
+      {
+       "color": "#c7f36a",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#21332d",
+      "hsl": {
+       "h": 160,
+       "s": 0.21,
+       "l": 0.16
+      },
+      "fg": "#abc2b7"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 7,
+     "radius": 8,
+     "height": 30,
+     "withShadow": 1,
+     "withGradient": 1,
+     "mono": 6,
+     "upper": 1,
+     "heroLabels": [
+      "▶ Play Cozy Farm Simulator",
+      "−5,000",
+      "−1,000",
+      "+1,000",
+      "+5,000"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 5,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "button.play-farm-button → rgb(11, 18, 16) 0px 3px 0px 0px, rgba(7, 16, 13, 0.27) 0px 8px 18px 0px",
+      "section.panel.points-panel → rgb(10, 18, 17) 0px 8px 0px 0px, rgba(0, 0, 0, 0.18) 0px 16px 28px 0px, rgba(255",
+      "section.panel.total-panel → rgb(10, 18, 17) 0px 8px 0px 0px, rgba(0, 0, 0, 0.18) 0px 16px 28px 0px, rgba(255",
+      "section.panel.next-panel → rgb(10, 18, 17) 0px 8px 0px 0px, rgba(0, 0, 0, 0.18) 0px 16px 28px 0px, rgba(255"
+     ],
+     "gradients": 2,
+     "scrims": 0,
+     "gradientSamples": [
+      "main.app-shell → radial-gradient(circle at 12% 2%, rgb(38, 63, 56) 0px, rgba(0, 0, 0, 0) 432px), none",
+      "section.panel.points-panel → linear-gradient(145deg, rgb(27, 43, 39), rgb(23, 34, 31))"
+     ],
+     "gradientText": 0,
+     "hairlines": 4,
+     "hairlineSamples": [
+      "header.topbar 1325px",
+      "label.points-input 822px",
+      "label.claimed-points-input 822px",
+      "div.total-block 822px"
+     ],
+     "outlinedBoxes": 3,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 3,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 95,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 951,
+    "margins": {
+     "left": 58,
+     "right": 79
+    },
+    "sections": [
+     {
+      "sel": "section.utility-heading",
+      "tag": "section",
+      "top": 95,
+      "height": 173,
+      "words": 6,
+      "media": 0,
+      "middle": 711,
+      "heading": null,
+      "left": 58,
+      "right": 58,
+      "textLeft": 58,
+      "textRight": 79,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div.workspace-grid",
+      "tag": "div",
+      "top": 268,
+      "height": 651,
+      "words": 66,
+      "media": 0,
+      "middle": 66,
+      "heading": {
+       "text": "150",
+       "size": 30,
+       "tag": "strong"
+      },
+      "left": 84,
+      "right": 84,
+      "textLeft": 84,
+      "textRight": 84,
+      "fullBleed": false,
+      "footer": true,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 84,
+      "n": 3
+     },
+     {
+      "x": 971,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 4,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.11,
+    "voidBox": {
+     "x": 960,
+     "y": 600,
+     "w": 480,
+     "h": 300
+    }
+   },
+   "app": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "dark": true,
+    "ground": "#101817",
+    "sidebar": null,
+    "topbar": null,
+    "canvas": {
+     "left": 57,
+     "right": 58
+    },
+    "hero": {
+     "text": "Current points",
+     "words": 2,
+     "chars": 14,
+     "lines": 1,
+     "size": 19,
+     "vw": 1.3,
+     "font": "Trebuchet MS",
+     "weight": 700,
+     "tracking": -0.02,
+     "leading": 1.2,
+     "top": 329,
+     "tag": "h2",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 3,
+     "firstScreen": 3,
+     "ragged": [
+      {
+       "diff": 120,
+       "top": 267
+      }
+     ],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 5,
+     "radii": [
+      [
+       16,
+       3
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 3,
+     "softShadows": 3,
+     "shadowSamples": [
+      "rgb(10, 18, 17) 0px 8px 0px 0px",
+      "rgb(10, 18, 17) 0px 8px 0px 0px",
+      "rgb(10, 18, 17) 0px 8px 0px 0px"
+     ],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 8,
+     "tabularShare": 0,
+     "kpiMax": 30
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.61,
+     "tiny": 2,
+     "tinySamples": [
+      "Event Reward Calculator 10px",
+      "Reset progress 10px"
+     ],
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      19,
+      24,
+      30
+     ]
+    },
+    "title": null,
+    "colourShare": 0.001
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 1269,
+     "screens": 1.2,
+     "words": 95,
+     "img": 1,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 4,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Current points",
+     "words": 2,
+     "chars": 14,
+     "lines": 1,
+     "size": 19,
+     "vw": 2.5,
+     "font": "Trebuchet MS",
+     "weight": 700,
+     "tracking": -0.02,
+     "leading": 1.2,
+     "top": 325,
+     "tag": "h2",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": null,
+    "headings": [
+     {
+      "text": "#1 150",
+      "words": 2,
+      "chars": 6,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Courier New",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": true,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.4,
+      "top": 1104,
+      "tag": "div",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Courier New",
+       "share": 0.61,
+       "mono": true
+      },
+      {
+       "family": "Trebuchet MS",
+       "share": 0.39,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      19,
+      24,
+      30,
+      32
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": {
+      "font": "Courier New",
+      "size": 11,
+      "leading": 1.2,
+      "weight": 600,
+      "tracking": 0,
+      "contrast": null
+     },
+     "measureChars": 124,
+     "max": {
+      "size": 32,
+      "vw": 4.2,
+      "font": "Courier New",
+      "text": "#1"
+     },
+     "monoShare": 0.61,
+     "monoProseShare": 0.61,
+     "monoFamilies": [
+      "Courier New"
+     ],
+     "monoSamples": [
+      "SELECT EVENT",
+      "01 / YOUR PROGRESS",
+      "PTS",
+      "−5,000",
+      "−1,000",
+      "−100"
+     ],
+     "microLabels": 7,
+     "microLabelShare": 0.256,
+     "microSamples": [
+      "Event Reward Calculator",
+      "SELECT EVENT",
+      "01 / YOUR PROGRESS",
+      "Claimed through",
+      "02 / REWARD TOTAL",
+      "UNCLAIMED REWARDS"
+     ],
+     "upperShare": 0.33,
+     "centerShare": 0.21,
+     "smallText": 11
+    },
+    "eyebrows": [],
+    "numbered": [
+     {
+      "text": "01 / YOUR PROGRESS",
+      "size": 12,
+      "top": 301
+     },
+     {
+      "text": "02 / REWARD TOTAL",
+      "size": 12,
+      "top": 722
+     },
+     {
+      "text": "03 / KEEP GOING",
+      "size": 12,
+      "top": 973
+     }
+    ],
+    "color": {
+     "bodyBg": "#101817",
+     "bodyBgHsl": {
+      "h": 173,
+      "s": 0.2,
+      "l": 0.08
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#101817",
+       "top": 0,
+       "hsl": {
+        "h": 173,
+        "s": 0.2,
+        "l": 0.08
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#899591",
+       "share": 0.32
+      },
+      {
+       "color": "#f1f3ee",
+       "share": 0.29
+      },
+      {
+       "color": "#aebdb7",
+       "share": 0.17
+      },
+      {
+       "color": "#abc2b7",
+       "share": 0.07
+      },
+      {
+       "color": "#c7f36a",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#21332d",
+      "hsl": {
+       "h": 160,
+       "s": 0.21,
+       "l": 0.16
+      },
+      "fg": "#abc2b7"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 6,
+     "radius": 8,
+     "height": 30,
+     "withShadow": 1,
+     "withGradient": 1,
+     "mono": 6,
+     "upper": 1,
+     "heroLabels": [
+      "▶ Play Cozy Farm Simulator",
+      "−5,000",
+      "−1,000",
+      "+1,000",
+      "+5,000"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 5,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "button.play-farm-button → rgb(11, 18, 16) 0px 3px 0px 0px, rgba(7, 16, 13, 0.27) 0px 8px 18px 0px",
+      "section.panel.points-panel → rgb(10, 18, 17) 0px 8px 0px 0px, rgba(0, 0, 0, 0.18) 0px 16px 28px 0px, rgba(255",
+      "section.panel.total-panel → rgb(10, 18, 17) 0px 8px 0px 0px, rgba(0, 0, 0, 0.18) 0px 16px 28px 0px, rgba(255",
+      "section.panel.next-panel → rgb(10, 18, 17) 0px 8px 0px 0px, rgba(0, 0, 0, 0.18) 0px 16px 28px 0px, rgba(255"
+     ],
+     "gradients": 2,
+     "scrims": 0,
+     "gradientSamples": [
+      "main.app-shell → radial-gradient(circle at 12% 2%, rgb(38, 63, 56) 0px, rgba(0, 0, 0, 0) 432px), none",
+      "section.panel.points-panel → linear-gradient(145deg, rgb(27, 43, 39), rgb(23, 34, 31))"
+     ],
+     "gradientText": 0,
+     "hairlines": 4,
+     "hairlineSamples": [
+      "header.topbar 724px",
+      "label.points-input 680px",
+      "label.claimed-points-input 680px",
+      "div.total-block 680px"
+     ],
+     "outlinedBoxes": 3,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 3,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 95,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 1269,
+    "margins": {
+     "left": 22,
+     "right": 43
+    },
+    "sections": [
+     {
+      "sel": "section.utility-heading",
+      "tag": "section",
+      "top": 95,
+      "height": 173,
+      "words": 6,
+      "media": 0,
+      "middle": 110,
+      "heading": null,
+      "left": 22,
+      "right": 22,
+      "textLeft": 22,
+      "textRight": 43,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div.workspace-grid",
+      "tag": "div",
+      "top": 268,
+      "height": 969,
+      "words": 66,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Current points",
+       "size": 19,
+       "tag": "h2"
+      },
+      "left": 44,
+      "right": 44,
+      "textLeft": 44,
+      "textRight": 44,
+      "fullBleed": false,
+      "footer": true,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 44,
+      "n": 4
+     }
+    ],
+    "leftBlocks": 4,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "dark": true,
+    "ground": "#101817",
+    "sidebar": null,
+    "topbar": null,
+    "canvas": {
+     "left": 21,
+     "right": 22
+    },
+    "hero": {
+     "text": "Current points",
+     "words": 2,
+     "chars": 14,
+     "lines": 1,
+     "size": 19,
+     "vw": 2.5,
+     "font": "Trebuchet MS",
+     "weight": 700,
+     "tracking": -0.02,
+     "leading": 1.2,
+     "top": 325,
+     "tag": "h2",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 3,
+     "firstScreen": 3,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 5,
+     "radii": [
+      [
+       16,
+       3
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 3,
+     "softShadows": 3,
+     "shadowSamples": [
+      "rgb(10, 18, 17) 0px 8px 0px 0px",
+      "rgb(10, 18, 17) 0px 8px 0px 0px",
+      "rgb(10, 18, 17) 0px 8px 0px 0px"
+     ],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 8,
+     "tabularShare": 0,
+     "kpiMax": 30
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.61,
+     "tiny": 2,
+     "tinySamples": [
+      "Event Reward Calculator 10px",
+      "Reset progress 10px"
+     ],
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      19,
+      24,
+      30
+     ]
+    },
+    "title": null,
+    "colourShare": 0.003
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 1342,
+     "screens": 1.6,
+     "words": 95,
+     "img": 1,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 4,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Current points",
+     "words": 2,
+     "chars": 14,
+     "lines": 1,
+     "size": 19,
+     "vw": 4.9,
+     "font": "Trebuchet MS",
+     "weight": 700,
+     "tracking": -0.02,
+     "leading": 1.2,
+     "top": 376,
+     "tag": "h2",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": null,
+    "headings": [
+     {
+      "text": "Next milestone",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Trebuchet MS",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.44,
+      "top": 1093,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "#1 150",
+      "words": 2,
+      "chars": 6,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Courier New",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": true,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 1186,
+      "tag": "div",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 2,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Courier New",
+       "share": 0.61,
+       "mono": true
+      },
+      {
+       "family": "Trebuchet MS",
+       "share": 0.39,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      19,
+      24,
+      30,
+      32
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": {
+      "font": "Courier New",
+      "size": 11,
+      "leading": 1.2,
+      "weight": 600,
+      "tracking": 0,
+      "contrast": null
+     },
+     "measureChars": 59,
+     "max": {
+      "size": 32,
+      "vw": 8.2,
+      "font": "Courier New",
+      "text": "#1"
+     },
+     "monoShare": 0.61,
+     "monoProseShare": 0.61,
+     "monoFamilies": [
+      "Courier New"
+     ],
+     "monoSamples": [
+      "SELECT EVENT",
+      "01 / YOUR PROGRESS",
+      "PTS",
+      "−5,000",
+      "−1,000",
+      "−100"
+     ],
+     "microLabels": 7,
+     "microLabelShare": 0.256,
+     "microSamples": [
+      "Event Reward Calculator",
+      "SELECT EVENT",
+      "01 / YOUR PROGRESS",
+      "Claimed through",
+      "02 / REWARD TOTAL",
+      "UNCLAIMED REWARDS"
+     ],
+     "upperShare": 0.33,
+     "centerShare": 0.21,
+     "smallText": 11
+    },
+    "eyebrows": [
+     {
+      "text": "03 / KEEP GOING",
+      "above": "Next milestone",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 12,
+      "top": 1049
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01 / YOUR PROGRESS",
+      "size": 12,
+      "top": 352
+     },
+     {
+      "text": "02 / REWARD TOTAL",
+      "size": 12,
+      "top": 800
+     },
+     {
+      "text": "03 / KEEP GOING",
+      "size": 12,
+      "top": 1049
+     }
+    ],
+    "color": {
+     "bodyBg": "#101817",
+     "bodyBgHsl": {
+      "h": 173,
+      "s": 0.2,
+      "l": 0.08
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#101817",
+       "top": 0,
+       "hsl": {
+        "h": 173,
+        "s": 0.2,
+        "l": 0.08
+       }
+      },
+      {
+       "color": "#1b2925",
+       "top": 1017,
+       "hsl": {
+        "h": 163,
+        "s": 0.21,
+        "l": 0.13
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#899591",
+       "share": 0.32
+      },
+      {
+       "color": "#f1f3ee",
+       "share": 0.29
+      },
+      {
+       "color": "#aebdb7",
+       "share": 0.17
+      },
+      {
+       "color": "#abc2b7",
+       "share": 0.07
+      },
+      {
+       "color": "#c7f36a",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#21332d",
+      "hsl": {
+       "h": 160,
+       "s": 0.21,
+       "l": 0.16
+      },
+      "fg": "#abc2b7"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 6,
+     "radius": 8,
+     "height": 30,
+     "withShadow": 1,
+     "withGradient": 1,
+     "mono": 6,
+     "upper": 1,
+     "heroLabels": [
+      "▶ Play Cozy Farm Simulator",
+      "−5,000",
+      "−1,000",
+      "+1,000",
+      "+5,000"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 5,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "button.play-farm-button → rgb(11, 18, 16) 0px 3px 0px 0px, rgba(7, 16, 13, 0.27) 0px 8px 18px 0px",
+      "section.panel.points-panel → rgb(10, 18, 17) 0px 8px 0px 0px, rgba(0, 0, 0, 0.18) 0px 16px 28px 0px, rgba(255",
+      "section.panel.total-panel → rgb(10, 18, 17) 0px 8px 0px 0px, rgba(0, 0, 0, 0.18) 0px 16px 28px 0px, rgba(255",
+      "section.panel.next-panel → rgb(10, 18, 17) 0px 8px 0px 0px, rgba(0, 0, 0, 0.18) 0px 16px 28px 0px, rgba(255"
+     ],
+     "gradients": 3,
+     "scrims": 0,
+     "gradientSamples": [
+      "main.app-shell → radial-gradient(circle at 12% 2%, rgb(38, 63, 56) 0px, rgba(0, 0, 0, 0) 432px), none",
+      "button.play-farm-button → linear-gradient(145deg, rgb(29, 44, 39), rgb(23, 35, 31))",
+      "section.panel.points-panel → linear-gradient(145deg, rgb(27, 43, 39), rgb(23, 34, 31))"
+     ],
+     "gradientText": 0,
+     "hairlines": 4,
+     "hairlineSamples": [
+      "header.topbar 358px",
+      "label.points-input 324px",
+      "label.claimed-points-input 324px",
+      "div.total-block 324px"
+     ],
+     "outlinedBoxes": 3,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 3,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 95,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 1342,
+    "margins": {
+     "left": 16,
+     "right": 16
+    },
+    "sections": [
+     {
+      "sel": "section.utility-heading",
+      "tag": "section",
+      "top": 95,
+      "height": 226,
+      "words": 6,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 90,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div.workspace-grid",
+      "tag": "div",
+      "top": 321,
+      "height": 996,
+      "words": 66,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Current points",
+       "size": 19,
+       "tag": "h2"
+      },
+      "left": 33,
+      "right": 33,
+      "textLeft": 33,
+      "textRight": 33,
+      "fullBleed": false,
+      "footer": true,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 33,
+      "n": 4
+     }
+    ],
+    "leftBlocks": 4,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "dark": true,
+    "ground": "#101817",
+    "sidebar": null,
+    "topbar": null,
+    "canvas": {
+     "left": 15,
+     "right": 16
+    },
+    "hero": {
+     "text": "Current points",
+     "words": 2,
+     "chars": 14,
+     "lines": 1,
+     "size": 19,
+     "vw": 4.9,
+     "font": "Trebuchet MS",
+     "weight": 700,
+     "tracking": -0.02,
+     "leading": 1.2,
+     "top": 376,
+     "tag": "h2",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 3,
+     "firstScreen": 2,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 5,
+     "radii": [
+      [
+       16,
+       3
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 3,
+     "softShadows": 3,
+     "shadowSamples": [
+      "rgb(10, 18, 17) 0px 8px 0px 0px",
+      "rgb(10, 18, 17) 0px 8px 0px 0px",
+      "rgb(10, 18, 17) 0px 8px 0px 0px"
+     ],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 8,
+     "tabularShare": 0,
+     "kpiMax": 30
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.61,
+     "tiny": 2,
+     "tinySamples": [
+      "Event Reward Calculator 10px",
+      "Reset progress 10px"
+     ],
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      19,
+      24,
+      30
+     ]
+    },
+    "title": null,
+    "colourShare": 0.007
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "7 tiny uppercase letter-spaced labels (e.g. \"Event Reward Calculator\", \"SELECT EVENT\", \"01 / YOUR PROGRESS\", \"Claimed through\").",
+   "fix": "Use sentence-case text at a readable size, or delete the label.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "width": 1440,
+   "message": "2 gradient fill(s): main.app-shell → radial-gradient(circle at 12% 2%, rgb(38, 63, 56) 0px, rgba(0, 0, 0, 0) 432px), none | section.panel.points-panel → linear-gradient(145deg, rgb(27, 43, 39), rgb(23, 34, 31))",
+   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "button-fx",
+   "width": 1440,
+   "message": "Buttons with gradient fill and shadow/glow.",
+   "fix": "Flat fill, one colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "heavy-shadow",
+   "width": 1440,
+   "message": "3 panel shadow(s) heavy enough to read as floating: rgb(10, 18, 17) 0px 8px 0px 0px | rgb(10, 18, 17) 0px 8px 0px 0px | rgb(10, 18, 17) 0px 8px 0px 0px",
+   "fix": "Panels sit on the ground: separate them with a fill one step from the ground or a quiet 1px border. A shadow, if any, is under 8% black with a small blur. Real overlays (menus, dialogs, popovers) may float.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "tabular",
+   "width": 1440,
+   "message": "Only 0% of the figures use tabular numerals.",
+   "fix": "Set font-variant-numeric: tabular-nums on tables, KPIs and anything that updates, so digits keep their width.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "tiny-text",
+   "width": 1440,
+   "message": "61% of the text is under 13px.",
+   "fix": "Data and labels read at 13–14px; keep 11–12px for sublines and axis ticks.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "ragged-row",
+   "width": 1440,
+   "message": "1 pair(s) of cards in one row end at different heights (by 120px).",
+   "fix": "Cards that share a row share a bottom edge: balance them by their content (the same number of rows, a block of similar height beside it), or stack them. In testing, ragged rows were marked down every time."
+  },
+  {
+   "level": "FAIL",
+   "id": "no-title",
+   "width": 1440,
+   "message": "The screen has no h1.",
+   "fix": "Name the screen in an h1 at the top of the canvas (18–28px): \"Overview\", \"Payouts\", the project's name.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "/Users/mac/Documents/TATARI/anti-slop/evidence/desktop-fold.jpg",
+   "pages": [
+    "/Users/mac/Documents/TATARI/anti-slop/evidence/desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "/Users/mac/Documents/TATARI/anti-slop/evidence/tablet-fold.jpg",
+   "pages": [
+    "/Users/mac/Documents/TATARI/anti-slop/evidence/tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "/Users/mac/Documents/TATARI/anti-slop/evidence/mobile-fold.jpg",
+   "pages": [
+    "/Users/mac/Documents/TATARI/anti-slop/evidence/mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

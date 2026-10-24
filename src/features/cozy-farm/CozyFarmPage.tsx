@@ -4,6 +4,7 @@ import { formatNumber, formatWeight, type AutoEstimate } from './engine'
 import { useCozyFarm } from './useCozyFarm'
 import { useCountUp } from './useCountUp'
 import styles from './CozyFarmPage.module.css'
+import { Modal as ModalSurface } from '../../Modal'
 
 type Modal = 'fertilizer' | 'auto' | 'rules' | null
 type Props = { initialFertilizer?: number; onClose?: () => void }
@@ -28,7 +29,7 @@ export default function CozyFarmPage({ initialFertilizer, onClose }: Props) {
   const holdInterval = useRef<ReturnType<typeof setInterval> | null>(null)
   const fertilizeButton = useRef<HTMLButtonElement | null>(null)
   const fertilizeRef = useRef<() => void>(() => {})
-  const held = useRef(false)
+  const multiplierHeld = useRef(false)
 
   useEffect(() => () => {
     if (badgeTimer.current) clearTimeout(badgeTimer.current)
@@ -54,12 +55,11 @@ export default function CozyFarmPage({ initialFertilizer, onClose }: Props) {
     setSupport(String(Math.min(CONFIG.MAX_SUPPORT_PERCENT, Number(digits))))
   }
   const startHold = () => {
-    held.current = false
-    badgeTimer.current = setTimeout(() => { held.current = true; cycleMultiplier(-1) }, 400)
+    multiplierHeld.current = false
+    badgeTimer.current = setTimeout(() => { multiplierHeld.current = true; cycleMultiplier(-1) }, 400)
   }
   const stopHold = () => {
     if (badgeTimer.current) clearTimeout(badgeTimer.current)
-    if (!held.current) cycleMultiplier(1)
   }
   const fertilizeOnce = () => {
     if (game.fertilizer <= 0) {
@@ -69,7 +69,7 @@ export default function CozyFarmPage({ initialFertilizer, onClose }: Props) {
     }
     const harvest = game.fertilize(Number(support) || 0)
     if (!harvest) return
-    fertilizeButton.current?.animate([
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) fertilizeButton.current?.animate([
       { transform: 'translateY(0) scale(1)' },
       { transform: 'translateY(-14px) scale(1.06)', offset: 0.36 },
       { transform: 'translateY(2px) scale(.98)', offset: 0.72 },
@@ -82,13 +82,11 @@ export default function CozyFarmPage({ initialFertilizer, onClose }: Props) {
     if (damageTimer.current) clearTimeout(damageTimer.current)
     damageTimer.current = setTimeout(() => setDamage(null), 520)
   }
-  fertilizeRef.current = fertilizeOnce
+  useEffect(() => { fertilizeRef.current = fertilizeOnce })
   const startFertilizeHold = (event: ReactPointerEvent<HTMLButtonElement>) => {
     event.currentTarget.setPointerCapture(event.pointerId)
-    held.current = false
     fertilizeOnce()
     holdTimer.current = setTimeout(() => {
-      held.current = true
       holdInterval.current = setInterval(() => fertilizeRef.current(), 320)
     }, 150)
   }
@@ -102,24 +100,25 @@ export default function CozyFarmPage({ initialFertilizer, onClose }: Props) {
     if (estimate) { setAutoEstimate(estimate); setModal('auto') }
   }
 
-  return <main className={styles.page} onPointerDown={(event) => { if (event.target === event.currentTarget) leave() }}>
+  return <ModalSurface label="Cozy Farm simulator" className={styles.page} onClose={leave}>
     <div className={styles.phone}>
       <header className={styles.header}><button className={styles.back} onClick={leave}>← Back</button><h1>Cozy Farm</h1><button className={styles.help} onClick={() => setModal('rules')} aria-label="Rules">?</button></header>
-      <section className={styles.scenery} aria-label="Your farm"><div className={styles.sun}>☀️</div><span className={`${styles.tree} ${styles.treeOne}`}>🌲</span><span className={`${styles.tree} ${styles.treeTwo}`}>🌲</span><span className={`${styles.tree} ${styles.treeThree}`}>🌲</span>{damage && <div key={damage.id} className={styles.damageText}>+{formatNumber(damage.points)}</div>}</section>
+      <section className={styles.scenery} aria-label="Your farm"><div className={styles.sun} aria-hidden="true" /><span className={`${styles.tree} ${styles.treeOne}`} aria-hidden="true" /><span className={`${styles.tree} ${styles.treeTwo}`} aria-hidden="true" /><span className={`${styles.tree} ${styles.treeThree}`} aria-hidden="true" />{damage && <div key={damage.id} className={styles.damageText}>+{formatNumber(damage.points)}</div>}</section>
       {game.notice && <div className={styles.toast} role="status">{game.notice}</div>}
       <section className={styles.controls}>
-        <div className={styles.scoreCounter}>EVENT POINTS <strong>{formatNumber(animatedEventPoints)}</strong><small>Auto · provisional {CONFIG.EVENT_POINTS_PER_KG} point/kg</small></div>
-        <div className={styles.gameInputs}><label className={styles.supportInput}>SUPPORT %<span><input type="text" inputMode="numeric" placeholder="0" value={support} onChange={(event) => changeSupport(event.target.value)} /></span></label></div>
-        <div className={styles.actionRow}><button className={styles.utility} onClick={runAutoFertilize} disabled={!game.fertilizer}><span>⚡</span>Auto Fertilize</button><div className={styles.plantWrap}><button ref={fertilizeButton} className={`${styles.plant} ${!game.fertilizer ? styles.disabled : ''}`} aria-label="Fertilize (tap or hold to repeat)" disabled={!game.fertilizer} onPointerDown={startFertilizeHold} onPointerUp={finishFertilizeHold} onPointerCancel={finishFertilizeHold} onClick={(event) => { if (event.detail === 0) fertilizeOnce() }}><span className={styles.playIcon}>🧺<small>Fertilize</small></span></button><button key={game.selectedMultiplier} className={styles.multiplier} aria-label={`Fertilizer amount x${game.selectedMultiplier}. Tap to change, hold to go back`} onPointerDown={startHold} onPointerUp={stopHold} onPointerLeave={() => badgeTimer.current && clearTimeout(badgeTimer.current)} onContextMenu={(event) => event.preventDefault()}>x{game.selectedMultiplier}</button></div><button className={styles.utility} onClick={game.reset}><span>↻</span>Reset</button></div>
-        <button className={styles.fertilizerPill} onClick={() => { setFertInput(String(game.fertilizer)); setModal('fertilizer') }}>🧪 {formatNumber(animatedFertilizer)} <small>FERTILIZER</small>{costFlash && <em>-{costFlash}</em>}<span>✎</span></button>
-        {!game.fertilizer && <div className={styles.emptyFertilizer}>No fertilizer left</div>}
+        <div className={styles.scoreCounter}>Event points <strong>{formatNumber(animatedEventPoints)}</strong><small>Provisional estimate: {CONFIG.EVENT_POINTS_PER_KG} point/kg</small></div>
+        {game.saveError && <p className={styles.storageError} role="alert">Fertilizer couldn’t be saved. Allow browser storage, then <button onClick={() => game.setFertilizer(game.fertilizer)}>retry saving</button>.</p>}
+        <div className={styles.gameInputs}><label className={styles.supportInput}>Support %<span><input type="text" inputMode="numeric" placeholder="0" value={support} onChange={(event) => changeSupport(event.target.value)} /></span></label></div>
+        <div className={styles.actionRow}><button className={styles.utility} onClick={runAutoFertilize} disabled={!game.fertilizer}>Auto Fertilize</button><div className={styles.plantWrap}><button ref={fertilizeButton} className={`${styles.plant} ${!game.fertilizer ? styles.disabled : ''}`} aria-label="Fertilize (tap or hold to repeat)" disabled={!game.fertilizer} onPointerDown={startFertilizeHold} onPointerUp={finishFertilizeHold} onPointerCancel={finishFertilizeHold} onClick={(event) => { if (event.detail === 0) fertilizeOnce() }}><span className={styles.playIcon}>Fertilize</span></button><button className={styles.multiplier} disabled={!game.fertilizer} aria-label={`Fertilizer amount x${game.selectedMultiplier}. Activate to change, hold to go back`} onPointerDown={startHold} onPointerUp={stopHold} onPointerCancel={stopHold} onPointerLeave={stopHold} onClick={(event) => { if (event.detail === 0 || !multiplierHeld.current) cycleMultiplier(1) }} onContextMenu={(event) => event.preventDefault()}>x{game.selectedMultiplier}</button></div><button className={styles.utility} onClick={game.reset}>Reset farm</button></div>
+        <button className={styles.fertilizerPill} onClick={() => { setFertInput(String(game.fertilizer)); setModal('fertilizer') }}><span>Edit fertilizer</span><strong>{formatNumber(animatedFertilizer)}</strong>{costFlash && <em>-{costFlash}</em>}</button>
+        {!game.fertilizer && <div className={styles.emptyFertilizer}>No fertilizer left. Set your balance with Edit fertilizer.</div>}
       </section>
     </div>
-    {modal && <div className={styles.modalBackdrop} role="presentation" onPointerDown={(event) => { if (event.target === event.currentTarget) leave() }}><section className={styles.modal} role="dialog" aria-modal="true">
+    {modal && <ModalSurface label={modal === 'rules' ? 'How to play' : modal === 'fertilizer' ? 'Fertilizer balance' : 'Auto Fertilize Estimate'} className={styles.modalBackdrop} onClose={() => setModal(null)}><section className={styles.modal}>
       <button className={styles.modalClose} onClick={() => setModal(null)} aria-label="Close">×</button>
-      {modal === 'fertilizer' && <><h2>Fertilizer</h2><p>Set your fertilizer balance.</p><input className={styles.numberInput} type="number" min="0" max={CONFIG.MAX_FERTILIZER} value={fertInput} onChange={(event) => setFertInput(event.target.value)} /><div className={styles.quickAdd}>{[100, 1000, 10000].map((amount) => <button key={amount} onClick={() => setFertInput(String(Math.min(CONFIG.MAX_FERTILIZER, Number(fertInput || 0) + amount)))}>+{formatNumber(amount)}</button>)}</div><div className={styles.modalActions}><button onClick={() => setFertInput(String(CONFIG.STARTING_FERTILIZER))}>Reset to 0</button><button className={styles.primary} onClick={() => { game.setFertilizer(Number(fertInput) || 0); setModal(null) }}>Save</button></div></>}
+      {modal === 'fertilizer' && <form onSubmit={(event) => { event.preventDefault(); game.setFertilizer(Number(fertInput) || 0); setModal(null) }}><h2>Fertilizer</h2><label htmlFor="fertilizer-balance">Set your fertilizer balance.</label><input id="fertilizer-balance" className={styles.numberInput} type="number" min="0" max={CONFIG.MAX_FERTILIZER} step="1" required value={fertInput} onChange={(event) => setFertInput(event.target.value)} /><div className={styles.quickAdd}>{[100, 1000, 10000].map((amount) => <button type="button" key={amount} onClick={() => setFertInput(String(Math.min(CONFIG.MAX_FERTILIZER, Math.max(0, Number(fertInput) || 0) + amount)))}>+{formatNumber(amount)}</button>)}</div><div className={styles.modalActions}><button type="button" onClick={() => setFertInput(String(CONFIG.STARTING_FERTILIZER))}>Reset to 0</button><button className={styles.primary} type="submit">Save</button></div></form>}
       {modal === 'auto' && autoEstimate && <><h2>Auto Fertilize Estimate</h2><p>Used the full fertilizer balance at x{autoEstimate.multiplier}. Event points use the provisional 1 point/kg rate.</p><div className={styles.summaryGrid}>{[['Fertilizer used', formatNumber(autoEstimate.fertilizerUsed)], ['Applications', formatNumber(autoEstimate.applications)], ['Support', `${autoEstimate.support}%`], ['Lowest chance weight', `${formatWeight(autoEstimate.normalWeight)} kg`], ['Highest chance weight', `${formatWeight(autoEstimate.finalWeight)} kg`], ['Estimated event points', formatNumber(autoEstimate.eventPoints)]].map(([label, value]) => <div key={label}><small>{label}</small><b>{value}</b></div>)}</div><p className={styles.pointsNote}>Critical rolls: Normal {autoEstimate.criticalCounts[1]}, ×2 {autoEstimate.criticalCounts[2]}, ×3 {autoEstimate.criticalCounts[3]}, ×4 {autoEstimate.criticalCounts[4]}, ×5 {autoEstimate.criticalCounts[5]}.</p><button className={styles.primary} onClick={() => setModal(null)}>Done</button></>}
       {modal === 'rules' && <><h2>How to play</h2><ul className={styles.rules}><li>Set Support from 0% to 263%.</li><li>Choose how much fertilizer to use with the multiplier badge.</li><li>Tap Fertilize once for one application, or hold to repeat automatically.</li><li>Each application gets one Critical Roll.</li><li>Event points currently use the provisional 1 point per kg estimate.</li></ul><button className={styles.primary} onClick={() => setModal(null)}>Got it!</button></>}
-    </section></div>}
-  </main>
+    </section></ModalSurface>}
+  </ModalSurface>
 }
